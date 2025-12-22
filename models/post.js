@@ -1,14 +1,22 @@
 const mongoose = require('mongoose');
 
-mongoose.connect(`mongodb://127.0.0.1.27017/datarefrencing`);
-
 const postSchema = mongoose.Schema({
-    postdata : String,
-    user : String,
-    date :{
+    user : {
+        type : mongoose.Schema.Types.ObjectId,
+        ref : "user"
+    },
+    date : {
         type : Date,
-        default : Date.now()
-    }
+        default: Date.now
+    },
+    content: String,
+    likes : [
+        {
+            type :mongoose.Schema.Types.ObjectId,
+            ref : 'user' 
+        }
+    ]
+    
 })
 
 module.exports = mongoose.model('post',postSchema);
